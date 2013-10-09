@@ -5,6 +5,7 @@
 #include <main/php.h>
 #include <Zend/zend.h>
 #include <ext/hash/php_hash.h>
+#include <ext/standard/info.h>
 #include "php_streebog.h"
 #include "gost3411-2012.h"
 
@@ -62,6 +63,10 @@ static PHP_MINIT_FUNCTION(streebog)
 
 static PHP_MINFO_FUNCTION(streebog)
 {
+	php_info_print_table_start();
+	php_info_print_table_row(2, "GOST R 34.11-2012 hash functions", "enabled");
+	php_info_print_table_row(2, "Version", PHP_STREEBOG_EXTVER);
+	php_info_print_table_end();
 }
 
 static
