@@ -13,7 +13,7 @@ The extension does not introduce any new functions; instead, it registers three 
 
 These hashes can be used with any function from PHP `hash` extension.
 
-The implementation of the hash function (`gost3411-2012.c`) is based on the implementation by Alexey Degtyarev <alexey@renatasystems.org>, see `LICENSE.gost`
+The implementation of the hash function (`gost3411-2012.c`) is based on the implementation by [Alexey Degtyarev](https://www.streebog.net/en/), see `LICENSE.gost`
 
 ## Installing/Configuring
 
