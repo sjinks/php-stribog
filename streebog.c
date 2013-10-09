@@ -32,7 +32,9 @@ const php_hash_ops streebog256_hash_ops = {
 	streebog256_init,
 	streebog_update,
 	streebog_final,
+#if PHP_VERSION_ID >= 50300
 	(php_hash_copy_func_t)php_hash_copy,
+#endif
 	32,
 	64,
 	sizeof(GOST34112012Context)
@@ -42,7 +44,9 @@ const php_hash_ops streebog512_hash_ops = {
 	streebog512_init,
 	streebog_update,
 	streebog_final,
+#if PHP_VERSION_ID >= 50300
 	(php_hash_copy_func_t)php_hash_copy,
+#endif
 	64,
 	64,
 	sizeof(GOST34112012Context)
