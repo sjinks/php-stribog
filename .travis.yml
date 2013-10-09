@@ -1,0 +1,19 @@
+language:
+  - php
+  - c
+
+compiler:
+  - gcc
+  - clang
+
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_script:
+  - phpize && ./configure CFLAGS="-O2 -g -Wall -Werror" --silent && make --silent
+
+script:
+  - NO_INTERACTION=1 make test
