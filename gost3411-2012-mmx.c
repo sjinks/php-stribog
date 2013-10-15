@@ -1,3 +1,9 @@
+#pragma GCC target ("mmx")
+
+#ifndef __MMX__
+#define __MMX__
+#endif
+
 #include <mmintrin.h>
 #include "tables.h"
 #include "gost3411-2012-mmx.h"
@@ -97,7 +103,7 @@ void XLPS(const union uint512_u* x, const union uint512_u* y, union uint512_u* d
 		mm0 = _mm_xor_si64(mm0, i64_to_m64(Ax[5][*p])); ++p;
 		mm0 = _mm_xor_si64(mm0, i64_to_m64(Ax[6][*p])); ++p;
 		mm0 = _mm_xor_si64(mm0, i64_to_m64(Ax[7][*p])); ++p;
-		data->QWORD[i] = _mm_cvtm64_si64(mm0);
+		data->QWORD[i] = m64_to_i64(mm0);
 	}
 }
 

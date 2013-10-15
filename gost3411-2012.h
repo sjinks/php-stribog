@@ -16,7 +16,7 @@
 #	define ALIGN(x) __attribute__((__aligned__(x)))
 #endif
 
-ALIGN(16) union uint512_u {
+union uint512_u {
 	uint64_t QWORD[8];
 } ALIGN(16);
 

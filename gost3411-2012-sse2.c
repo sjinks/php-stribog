@@ -1,3 +1,13 @@
+#pragma GCC target ("sse2,mmx")
+
+#ifndef __MMX__
+#define __MMX__
+#endif
+
+#ifndef __SSE2__
+#define __SSE2__
+#endif
+
 #include <mmintrin.h>
 #include <emmintrin.h>
 #include "tables.h"
@@ -312,3 +322,4 @@ void GOST34112012Final_sse2(void* restrict ctx, unsigned char* restrict digest)
 	memset(CTX, 0, sizeof(GOST34112012Context));
 	_mm_empty();
 }
+
