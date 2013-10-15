@@ -11,22 +11,30 @@
 
 static void streebog256_init(void* context)
 {
-	GOST34112012Init(context, 256);
+	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
+	void *ctx     = (char*)context + offset;
+	GOST34112012Init(ctx, 256);
 }
 
 static void streebog512_init(void* context)
 {
-	GOST34112012Init(context, 512);
+	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
+	void *ctx     = (char*)context + offset;
+	GOST34112012Init(ctx, 512);
 }
 
 static void streebog_update(void* context, const unsigned char* buf, unsigned int count)
 {
-	GOST34112012Update(context, buf, count);
+	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
+	void *ctx     = (char*)context + offset;
+	GOST34112012Update(ctx, buf, count);
 }
 
 static void streebog_final(unsigned char* digest, void* context)
 {
-	GOST34112012Final(context, digest);
+	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
+	void *ctx     = (char*)context + offset;
+	GOST34112012Final(ctx, digest);
 }
 
 const php_hash_ops streebog256_hash_ops = {
@@ -38,7 +46,7 @@ const php_hash_ops streebog256_hash_ops = {
 #endif
 	32,
 	64,
-	sizeof(GOST34112012Context)
+	(sizeof(GOST34112012Context) + 15)
 };
 
 const php_hash_ops streebog512_hash_ops = {
@@ -50,7 +58,7 @@ const php_hash_ops streebog512_hash_ops = {
 #endif
 	64,
 	64,
-	sizeof(GOST34112012Context)
+	(sizeof(GOST34112012Context) + 15)
 };
 
 static PHP_MINIT_FUNCTION(streebog)
