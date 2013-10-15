@@ -27,7 +27,18 @@ static void stribog_update(void* context, const unsigned char* buf, unsigned int
 {
 	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
 	void *ctx     = (char*)context + offset;
-	GOST34112012Update(ctx, buf, count);
+
+	offset = (((size_t)buf + 15) & ~0x0F) - (size_t)buf;
+	if (!offset) {
+		GOST34112012Update(ctx, buf, count);
+	}
+	else {
+		ALIGN(16) unsigned char tmp[15];
+		assert(offset < 16);
+		memcpy(tmp, buf, offset);
+		GOST34112012Update(ctx, tmp, offset);
+		GOST34112012Update(ctx, buf + offset, count - offset);
+	}
 }
 
 static void stribog_final(unsigned char* digest, void* context)
