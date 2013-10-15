@@ -1,10 +1,10 @@
 --TEST--
 hash_init()
 --SKIPIF--
-<?php if (!extension_loaded('streebog')) die('skip'); ?>
+<?php if (!extension_loaded('stribog')) die('skip'); ?>
 --FILE--
 <?php
-foreach (array('streebog256', 'streebog512', 'streebog') as $h) {
+foreach (array('stribog256', 'stribog512', 'stribog') as $h) {
 	$ctx = hash_init($h);
 	hash_update($ctx, '012345678901234567890123456789012345678901234567890123456789012');
 	echo hash_final($ctx), PHP_EOL;

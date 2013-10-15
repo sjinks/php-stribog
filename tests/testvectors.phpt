@@ -1,18 +1,18 @@
 --TEST--
 GOST R 34.11-2012: official test vectors
 --SKIPIF--
-<?php if (!extension_loaded('streebog')) die('skip'); ?>
+<?php if (!extension_loaded('stribog')) die('skip'); ?>
 --FILE--
 <?php
 $vec = '012345678901234567890123456789012345678901234567890123456789012';
-echo hash('streebog256', $vec), PHP_EOL;
-echo hash('streebog512', $vec), PHP_EOL;
-echo hash('streebog', $vec), PHP_EOL;
+echo hash('stribog256', $vec), PHP_EOL;
+echo hash('stribog512', $vec), PHP_EOL;
+echo hash('stribog', $vec), PHP_EOL;
 
 $vec = base64_decode('0eUg4uXy8OgsINHy8Ojh7uboIOLt8/boLCDi5f7y+iDxIOzu8P8g8fLw5evg7Ogg7eAg9fDg4fD7/yDv6/rq+yDI4+7w5eL7');
-echo hash('streebog256', $vec), PHP_EOL;
-echo hash('streebog512', $vec), PHP_EOL;
-echo hash('streebog', $vec), PHP_EOL;
+echo hash('stribog256', $vec), PHP_EOL;
+echo hash('stribog512', $vec), PHP_EOL;
+echo hash('stribog', $vec), PHP_EOL;
 ?>
 --EXPECT--
 9d151eefd8590b89daa6ba6cb74af9275dd051026bb149a452fd84e5e57b5500
