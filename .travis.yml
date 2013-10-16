@@ -17,3 +17,4 @@ before_script:
 
 script:
   - NO_INTERACTION=1 make test
+  - $(phpenv which php) benchmark.php
