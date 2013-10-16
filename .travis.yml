@@ -13,8 +13,12 @@ php:
   - 5.5
 
 before_script:
-  - phpize && ./configure CFLAGS="-O2 -g -Wall -Werror" --silent && make --silent
+  - phpize && ./configure CFLAGS="-O2 -g3 -Wall -Werror -fvisibility=hidden" --silent && make --silent && make install
 
 script:
-  - NO_INTERACTION=1 make test
+  - .travis/run_php_tests.sh
+  - phpenv config-add .travis/stribog.ini
   - $(phpenv which php) benchmark.php
+
+after_failure:
+  - .travis/after_failure.sh
