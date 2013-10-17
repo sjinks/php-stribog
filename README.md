@@ -16,6 +16,7 @@ These hashes can be used with any function from PHP `hash` extension.
 The implementation of the hash function (`gost3411-2012-*.c`) is based on the implementation by [Alexey Degtyarev](https://www.streebog.net/en/), see `LICENSE.gost`.
 The changes made to Alexey's code:
   * the MMX implementation was almost completely rewritten in order not to use SSE instructions;
+  * optimization of 64-bit version of `extract()` — gained extra 0.7 MB/s;
   * the generic implementation was optimized by removing unnecessary `memcpy` calls;
   * inline functions instead of macros;
   * the implementation (generic/MMX/SSE) is chosen at runtime depending on CPU capabilities (GCC 4.6 or newer is required for that).
