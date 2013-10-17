@@ -84,7 +84,7 @@ static inline void xtranspose(const union uint512_u* x, const union uint512_u* y
 	z->QWORD[7] = m64_to_i64(mm7);
 }
 
-void XLPS(const union uint512_u* x, const union uint512_u* y, union uint512_u* data)
+static void XLPS(const union uint512_u* x, const union uint512_u* y, union uint512_u* data)
 {
 	uint_fast8_t i;
 	uint8_t* p;
