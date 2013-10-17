@@ -115,7 +115,7 @@ static inline __m128i extract(const unsigned int row, __m128i xmm0, __m128i xmm1
 }
 #endif
 
-static void g(union uint512_u* restrict h, const union uint512_u* restrict N, const unsigned char* restrict m)
+static inline void g(union uint512_u* restrict h, const union uint512_u* restrict N, const unsigned char* restrict m)
 {
 	__m128i xmm0, xmm2, xmm4, xmm6;
 	__m128i xmm1, xmm3, xmm5, xmm7;
