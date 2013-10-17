@@ -195,8 +195,6 @@ void GOST34112012Final_ref(void* restrict ctx, unsigned char* restrict digest)
 
 	memcpy(&CTX->hash, &CTX->h, sizeof(CTX->hash));
 
-	CTX->bufsize = 0;
-
 	if (CTX->digest_size == 256) {
 		memcpy(digest, &(CTX->hash.QWORD[4]), 32);
 	}
