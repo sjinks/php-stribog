@@ -4,6 +4,10 @@
 #define __MMX__
 #endif
 
+#ifndef __SSE__
+#define __SSE__
+#endif
+
 #ifndef __SSE2__
 #define __SSE2__
 #endif
@@ -168,7 +172,6 @@ static void g(union uint512_u* restrict h, const union uint512_u* restrict N, co
 	xmm7 = tmm3;
 	/* end of XLPS128R */
 
-
 	for (i=0; i<11; ++i) {
 		/* XLPS128M(&C[i], xmm0, xmm2, xmm4, xmm6); */
 		p = (const __m128i*)&C[i];
@@ -310,8 +313,6 @@ void GOST34112012Final_sse2(void* restrict ctx, unsigned char* restrict digest)
 
 	memcpy(&CTX->hash, &CTX->h, sizeof(CTX->hash));
 
-	CTX->bufsize = 0;
-
 	if (CTX->digest_size == 256) {
 		memcpy(digest, &(CTX->hash.QWORD[4]), 32);
 	}
@@ -322,4 +323,3 @@ void GOST34112012Final_sse2(void* restrict ctx, unsigned char* restrict digest)
 	memset(CTX, 0, sizeof(GOST34112012Context));
 	_mm_empty();
 }
-
