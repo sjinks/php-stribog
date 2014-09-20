@@ -1,6 +1,6 @@
 # php-stribog [![Build Status](https://travis-ci.org/sjinks/php-stribog.png?branch=master)](https://travis-ci.org/sjinks/php-stribog)
 
-GOST R 34.11-2012 (stribog) Hash Function implementation for PHP.
+GOST R 34.11-2012 (Stribog) Hash Function implementation for PHP.
 
 ## Introduction
 
