@@ -24,7 +24,7 @@ static inline uint64_t bswap64(uint64_t x)
 static void XLPS(const union uint512_u* x, const union uint512_u* y, union uint512_u* data)
 {
 	uint64_t r0, r1, r2, r3, r4, r5, r6, r7;
-	uint_fast8_t i;
+	int_fast8_t i;
 
 	r0 = x->QWORD[0] ^ y->QWORD[0];
 	r1 = x->QWORD[1] ^ y->QWORD[1];
