@@ -12,6 +12,7 @@
 #if (__x86_64__ || __i386__)
 #	include "gost3411-2012-mmx.h"
 #	include "gost3411-2012-sse2.h"
+#	include "gost3411-2012-sse41.h"
 #endif
 
 #include "tables.h"
@@ -39,11 +40,15 @@ void GOST34112012Init(void* ctx, const unsigned int digest_size)
 typedef void (*func_t)(void);
 
 #ifndef bit_MMX
-#define bit_MMX   (1 << 23)
+#define bit_MMX     (1 << 23)
 #endif
 
 #ifndef bit_SSE2
-#define bit_SSE2  (1 << 26)
+#define bit_SSE2    (1 << 26)
+#endif
+
+#ifndef bit_SSE4_1
+#define bit_SSE4_1  (1 << 19)
 #endif
 
 static void (*resolve_GOST34112012Update(void))(void)
@@ -51,6 +56,10 @@ static void (*resolve_GOST34112012Update(void))(void)
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+		if (ecx & bit_SSE4_1) {
+			return (func_t)&GOST34112012Update_sse41;
+		}
+
 		if (edx & bit_SSE2) {
 			return (func_t)&GOST34112012Update_sse2;
 		}
@@ -68,6 +77,10 @@ static void (*resolve_GOST34112012Final(void))(void)
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+		if (ecx & bit_SSE4_1) {
+			return (func_t)&GOST34112012Final_sse41;
+		}
+
 		if (edx & bit_SSE2) {
 			return (func_t)&GOST34112012Final_sse2;
 		}
@@ -87,7 +100,9 @@ extern void GOST34112012Final(void* restrict ctx, unsigned char* restrict digest
 
 void GOST34112012Update(void* restrict ctx, const unsigned char* restrict data, size_t len)
 {
-#if __SSE2__
+#if __SSE4_1__
+	GOST34112012Update_sse41(ctx, data, len);
+#elif __SSE2__
 	GOST34112012Update_sse2(ctx, data, len);
 #elif __MMX__
 	GOST34112012Update_mmx(ctx, data, len);
@@ -98,7 +113,9 @@ void GOST34112012Update(void* restrict ctx, const unsigned char* restrict data, 
 
 extern void GOST34112012Final(void* restrict ctx, unsigned char* restrict digest)
 {
-#if __SSE2__
+#if __SSE4_1__
+	GOST34112012Final_sse41(ctx, digest);
+#elif __SSE2__
 	GOST34112012Final_sse2(ctx, digest);
 #elif __MMX__
 	GOST34112012Final_mmx(ctx, digest);
