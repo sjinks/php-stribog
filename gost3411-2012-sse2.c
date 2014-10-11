@@ -19,9 +19,20 @@
 
 static inline void add512(const union uint512_u* x, const union uint512_u* y, union uint512_u* r)
 {
-	uint_fast8_t i, CF;
+	uint_fast8_t i, CF = 0;
+#if defined(__SIZEOF_INT128__)
+	const unsigned __int128* X = (const unsigned __int128*)x;
+	const unsigned __int128* Y = (const unsigned __int128*)y;
+	unsigned __int128* R       = (unsigned __int128*)r;
 
-	CF = 0;
+	for (i=0; i<4; ++i) {
+		unsigned __int128 a   = X[i];
+		unsigned __int128 b   = Y[i];
+		unsigned __int128 sum = a + b + CF;
+		CF                    = ((sum < b) ? 1 : ((sum > b) ? 0 : CF));
+		R[i]  = sum;
+	}
+#else
 	for (i=0; i<8; ++i) {
 		uint64_t a   = x->QWORD[i];
 		uint64_t b   = y->QWORD[i];
@@ -29,6 +40,7 @@ static inline void add512(const union uint512_u* x, const union uint512_u* y, un
 		CF           = ((sum < b) ? 1 : ((sum > b) ? 0 : CF));
 		r->QWORD[i]  = sum;
 	}
+#endif
 }
 
 #if __i386__
