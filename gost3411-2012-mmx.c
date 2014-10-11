@@ -121,14 +121,15 @@ static inline void X(const union uint512_u* x, const union uint512_u* y, union u
 
 static inline void add512(const union uint512_u* x, const union uint512_u* y, union uint512_u* r)
 {
-	uint_fast8_t i, CF, OF;
+	uint_fast8_t i, CF;
 
 	CF = 0;
 	for (i=0; i<8; ++i) {
-		r->QWORD[i]  = x->QWORD[i] + y->QWORD[i];
-		OF           = (r->QWORD[i] < y->QWORD[i]) ? 1 : 0;
-		r->QWORD[i] += CF;
-		CF           = OF;
+		uint64_t a   = x->QWORD[i];
+		uint64_t b   = y->QWORD[i];
+		uint64_t sum = a + b + CF;
+		CF           = ((sum < b) ? 1 : ((sum > b) ? 0 : CF));
+		r->QWORD[i]  = sum;
 	}
 }
 
