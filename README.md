@@ -19,7 +19,8 @@ The changes made to Alexey's code:
   * optimization of 64-bit version of `extract()` — gained extra 0.7 MB/s;
   * the generic implementation was optimized by removing unnecessary `memcpy` calls;
   * inline functions instead of macros;
-  * the implementation (generic/MMX/SSE) is chosen at runtime depending on CPU capabilities (GCC 4.6 or newer is required for that).
+  * the implementation (generic/MMX/SSE) is chosen at runtime depending on CPU capabilities (GCC 4.6 or newer is required for that);
+  * fixed `add512()` implementation.
 
 ## Installing/Configuring
 
