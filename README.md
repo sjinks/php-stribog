@@ -2,6 +2,8 @@
 
 GOST R 34.11-2012 (Stribog) Hash Function implementation for PHP.
 
+Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0
+
 ## Introduction
 
 This extension provides implementation of GOST R 34.11-2012 256 and 512 bit hash functions to be used with PHP [hash](http://php.net/hash) extension.
