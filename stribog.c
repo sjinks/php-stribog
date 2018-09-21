@@ -35,9 +35,15 @@ static void stribog_update(void* context, const unsigned char* buf, unsigned int
 	else {
 		ALIGN(16) unsigned char tmp[15];
 		assert(offset < 16);
-		memcpy(tmp, buf, offset);
-		GOST34112012Update(ctx, tmp, offset);
-		GOST34112012Update(ctx, buf + offset, count - offset);
+		if (count > offset) {
+			memcpy(tmp, buf, offset);
+			GOST34112012Update(ctx, tmp, offset);
+			GOST34112012Update(ctx, buf + offset, count - offset);
+		}
+		else {
+			memcpy(tmp, buf, count);
+			GOST34112012Update(ctx, tmp, count);
+		}
 	}
 }
 
