@@ -1,10 +1,5 @@
 language:
   - php
-  - c
-
-compiler:
-  - gcc
-  - clang
 
 sudo: false
 
@@ -13,6 +8,7 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - nightly
 
 before_script:
   - phpize && ./configure CFLAGS="-O2 -g3 -Wall -Werror" --silent && make --silent && make install
