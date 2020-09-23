@@ -2,7 +2,7 @@
 
 GOST R 34.11-2012 (Stribog) Hash Function implementation for PHP.
 
-Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, nightly (7.3 as of writing)
+Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, nightly (8.0 as of writing)
 
 ## Introduction
 
