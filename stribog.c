@@ -23,7 +23,15 @@ static void stribog512_init(void* context)
 	GOST34112012Init(ctx, 512);
 }
 
-static void stribog_update(void* context, const unsigned char* buf, unsigned int count)
+static void stribog_update(
+	void* context,
+	const unsigned char* buf,
+#if PHP_VERSION_ID >= 70400
+	size_t count
+#else
+	unsigned int count
+#endif
+)
 {
 	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
 	void *ctx     = (char*)context + offset;
@@ -64,6 +72,9 @@ const php_hash_ops stribog256_hash_ops = {
 	32,
 	64,
 	(sizeof(GOST34112012Context) + 15)
+#if PHP_VERSION_ID >= 70400
+	, 1
+#endif
 };
 
 const php_hash_ops stribog512_hash_ops = {
@@ -76,6 +87,9 @@ const php_hash_ops stribog512_hash_ops = {
 	64,
 	64,
 	(sizeof(GOST34112012Context) + 15)
+#if PHP_VERSION_ID >= 70400
+	, 1
+#endif
 };
 
 static PHP_MINIT_FUNCTION(stribog)
