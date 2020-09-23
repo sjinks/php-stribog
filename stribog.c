@@ -73,8 +73,8 @@ const php_hash_ops stribog256_hash_ops = {
 	(php_hash_copy_func_t)php_hash_copy,
 #endif
 #if PHP_VERSION_ID >= 80000
-	php_hash_serialize,
-	php_hash_unserialize,
+	NULL,
+	NULL,
 	NULL,
 #endif
 	32,
@@ -96,8 +96,8 @@ const php_hash_ops stribog512_hash_ops = {
 	(php_hash_copy_func_t)php_hash_copy,
 #endif
 #if PHP_VERSION_ID >= 80000
-	php_hash_serialize,
-	php_hash_unserialize,
+	NULL,
+	NULL,
 	NULL,
 #endif
 	64,
