@@ -63,11 +63,19 @@ static void stribog_final(unsigned char* digest, void* context)
 }
 
 const php_hash_ops stribog256_hash_ops = {
+#if PHP_VERSION_ID >= 80000
+	"stribog256",
+#endif
 	stribog256_init,
 	stribog_update,
 	stribog_final,
 #if PHP_VERSION_ID >= 50300
 	(php_hash_copy_func_t)php_hash_copy,
+#endif
+#if PHP_VERSION_ID >= 80000
+	php_hash_serialize,
+	php_hash_unserialize,
+	NULL,
 #endif
 	32,
 	64,
@@ -78,11 +86,19 @@ const php_hash_ops stribog256_hash_ops = {
 };
 
 const php_hash_ops stribog512_hash_ops = {
+#if PHP_VERSION_ID >= 80000
+	"stribog512",
+#endif
 	stribog512_init,
 	stribog_update,
 	stribog_final,
 #if PHP_VERSION_ID >= 50300
 	(php_hash_copy_func_t)php_hash_copy,
+#endif
+#if PHP_VERSION_ID >= 80000
+	php_hash_serialize,
+	php_hash_unserialize,
+	NULL,
 #endif
 	64,
 	64,
