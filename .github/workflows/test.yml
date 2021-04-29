@@ -13,7 +13,7 @@ jobs:
           - CC: clang
             CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
           - CC: gcc
-            CFLAGS: "-O2 -g3 -Wall -Werror"
+            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
         php:
           - '5.3'
           - '5.4'

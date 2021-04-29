@@ -1,4 +1,5 @@
 #pragma GCC target ("mmx")
+#pragma clang attribute push (__attribute__((target("mmx"))), apply_to=function)
 
 #ifndef __MMX__
 #define __MMX__
@@ -234,3 +235,5 @@ void GOST34112012Final_mmx(void* restrict ctx, unsigned char* restrict digest)
 	memset(CTX, 0, sizeof(GOST34112012Context));
 	_mm_empty();
 }
+
+#pragma clang attribute pop
