@@ -9,9 +9,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        cc:
-          - clang
-          - gcc
+        compiler:
+          - CC: clang
+            CFLAGS: "-O2 -g3 -Wall -Werror --Wunknown-pragmas"
+          - CC: gcc
+            CFLAGS: "-O2 -g3 -Wall -Werror"
         php:
           - '5.3'
           - '5.4'
@@ -23,7 +25,7 @@ jobs:
           - '7.3'
           - '8.0'
           - '8.1'
-    name: "Build and Test (PHP ${{ matrix.php }}, CC: ${{ matrix.cc }})"
+    name: "Build and Test (PHP ${{ matrix.php }}, CC: ${{ matrix.compiler.CC }})"
     runs-on: ubuntu-16.04
     steps:
       - name: Check out the source code
@@ -36,7 +38,7 @@ jobs:
           tools: none
 
       - name: Build
-        run: phpize && ./configure CFLAGS="-O2 -g3 -Wall -Werror" CC=${{ matrix.cc }} --silent && make --silent
+        run: phpize && ./configure CFLAGS="${{ matrix.compiler.CFLAGS }}" CC=${{ matrix.compiler.CC }} --silent && make --silent
 
       - name: Run tests
         run: make test
