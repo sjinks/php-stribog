@@ -1,12 +1,12 @@
 # php-stribog [![Build Status](https://travis-ci.org/sjinks/php-stribog.png?branch=master)](https://travis-ci.org/sjinks/php-stribog)
 
-GOST R 34.11-2012 (Stribog) Hash Function implementation for PHP.
+GOST R 34.11-2012 (Stribog) Hash Function Implementation for PHP.
 
-Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, nightly (8.0 as of writing)
+Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, nightly (8.1 as of writing)
 
 ## Introduction
 
-This extension provides implementation of GOST R 34.11-2012 256 and 512 bit hash functions to be used with PHP [hash](http://php.net/hash) extension.
+This extension provides the implementation of GOST R 34.11-2012 256- and 512-bit hash functions to use with PHP [hash](http://php.net/hash) extension.
 
 The extension does not introduce any new functions; instead, it registers three hashes:
   * `stribog-256` (GOST R 34.11-2012 256 bit hash function);
