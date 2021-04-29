@@ -1,6 +1,4 @@
-.cproject
 .deps
-.project
 Makefile
 Makefile.fragments
 Makefile.global
