@@ -1,0 +1,41 @@
+name: Build and Test
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+          - '5.3'
+          - '5.4'
+          - '5.5'
+          - '5.6'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '8.0'
+    name: Build and Test (PHP ${{ matrix.php }})
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Check out the source code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: none
+
+      - name: Build
+        run: phpize && ./configure CFLAGS="-O2 -g3 -Wall -Werror" --silent && make --silent
+
+      - name: Run tests
+        run: make test
+        env:
+          NO_INTERACTION: "1"
+          REPORT_EXIT_STATUS: "1"
