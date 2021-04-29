@@ -5,7 +5,7 @@
 #include <ext/hash/php_hash.h>
 
 #define PHP_STRIBOG_EXTNAME  "stribog"
-#define PHP_STRIBOG_EXTVER   "1.0.0"
+#define PHP_STRIBOG_EXTVER   "1.1.0"
 
 #ifndef ZEND_MOD_END
 #define ZEND_MOD_END { NULL, NULL, NULL, 0 }
