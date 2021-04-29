@@ -11,7 +11,7 @@ jobs:
       matrix:
         compiler:
           - CC: clang
-            CFLAGS: "-O2 -g3 -Wall -Werror --Wunknown-pragmas"
+            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
           - CC: gcc
             CFLAGS: "-O2 -g3 -Wall -Werror"
         php:
