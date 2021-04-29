@@ -11,8 +11,8 @@ Tested with PHP 5.2, 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, nightly (
 This extension provides the implementation of GOST R 34.11-2012 256- and 512-bit hash functions to use with PHP [hash](http://php.net/hash) extension.
 
 The extension does not introduce any new functions; instead, it registers three hashes:
-  * `stribog-256` (GOST R 34.11-2012 256 bit hash function);
-  * `stribog-512` (GOST R 34.11-2012 512 bit hash function);
+  * `stribog-256` (GOST R 34.11-2012 256-bit hash function);
+  * `stribog-512` (GOST R 34.11-2012 512-bit hash function);
   * `stribog` (alias of `stribog-512`).
 
 These hashes can be used with any function from PHP `hash` extension.
