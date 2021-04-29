@@ -18,6 +18,7 @@ config.status
 config.sub
 configure
 configure.in
+configure.ac
 install-sh
 libtool
 ltmain.sh
@@ -30,3 +31,4 @@ run-tests.php
 modules/
 *.la
 *.*~
+*.dep

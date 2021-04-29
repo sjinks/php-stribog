@@ -9,14 +9,24 @@
 #include "php_stribog.h"
 #include "gost3411-2012.h"
 
-static void stribog256_init(void* context)
+static void stribog256_init(
+	void* context
+#if PHP_VERSION_ID >= 80100
+	, ZEND_ATTRIBUTE_UNUSED HashTable* args
+#endif
+)
 {
 	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
 	void *ctx     = (char*)context + offset;
 	GOST34112012Init(ctx, 256);
 }
 
-static void stribog512_init(void* context)
+static void stribog512_init(
+	void* context
+#if PHP_VERSION_ID >= 80100
+	, ZEND_ATTRIBUTE_UNUSED HashTable* args
+#endif
+)
 {
 	size_t offset = (((size_t)context + 15) & ~0x0F) - (size_t)context;
 	void *ctx     = (char*)context + offset;
