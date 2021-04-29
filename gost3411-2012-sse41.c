@@ -1,4 +1,5 @@
 #pragma GCC target ("sse4.1,mmx")
+#pragma clang attribute push (__attribute__((target("sse4.1,mmx"))), apply_to=function)
 
 #ifndef __MMX__
 #define __MMX__
@@ -448,3 +449,5 @@ void GOST34112012Final_sse41(void* restrict ctx, unsigned char* restrict digest)
 	memset(CTX, 0, sizeof(GOST34112012Context));
 	_mm_empty();
 }
+
+#pragma clang attribute pop
