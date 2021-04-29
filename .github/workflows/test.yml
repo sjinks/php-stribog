@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - "**"
+  workflow_dispatch:
 
 jobs:
   ci:
+    if: ${{ !contains(github.event.head_commit.message, '[ci skip]') || github.event_name == 'workflow_dispatch' }}
     strategy:
       fail-fast: true
       matrix:
