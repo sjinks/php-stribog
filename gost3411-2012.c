@@ -51,46 +51,46 @@ typedef void (*func_t)(void);
 #define bit_SSE4_1  (1 << 19)
 #endif
 
-static void (*resolve_GOST34112012Update(void* restrict, const unsigned char* restrict, size_t))(void)
+static void (*resolve_GOST34112012Update(void))(void* restrict, const unsigned char* restrict, size_t)
 {
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
 		if (ecx & bit_SSE4_1) {
-			return (func_t)&GOST34112012Update_sse41;
+			return GOST34112012Update_sse41;
 		}
 
 		if (edx & bit_SSE2) {
-			return (func_t)&GOST34112012Update_sse2;
+			return GOST34112012Update_sse2;
 		}
 
 		if (edx & bit_MMX) {
-			return (func_t)&GOST34112012Update_mmx;
+			return GOST34112012Update_mmx;
 		}
 	}
 
-	return (func_t)&GOST34112012Update_ref;
+	return GOST34112012Update_ref;
 }
 
-static void (*resolve_GOST34112012Final(void* restrict, unsigned char* restrict))(void)
+static void (*resolve_GOST34112012Final(void))(void* restrict, unsigned char* restrict)
 {
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
 		if (ecx & bit_SSE4_1) {
-			return (func_t)&GOST34112012Final_sse41;
+			return GOST34112012Final_sse41;
 		}
 
 		if (edx & bit_SSE2) {
-			return (func_t)&GOST34112012Final_sse2;
+			return GOST34112012Final_sse2;
 		}
 
 		if (edx & bit_MMX) {
-			return (func_t)&GOST34112012Final_mmx;
+			return GOST34112012Final_mmx;
 		}
 	}
 
-	return (func_t)&GOST34112012Final_ref;
+	return GOST34112012Final_ref;
 }
 
 extern void GOST34112012Update(void* restrict ctx, const unsigned char* restrict data, size_t len) __attribute__((ifunc("resolve_GOST34112012Update")));
