@@ -9,11 +9,11 @@ jobs:
   ci:
     if: ${{ !contains(github.event.head_commit.message, '[ci skip]') || github.event_name == 'workflow_dispatch' }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         compiler:
           - CC: clang
-            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
+            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas -Wno-implicit-const-int-float-conversion"
           - CC: gcc
             CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
         php:
