@@ -51,7 +51,7 @@ typedef void (*func_t)(void);
 #define bit_SSE4_1  (1 << 19)
 #endif
 
-static void (*resolve_GOST34112012Update(void))(void)
+static void (*resolve_GOST34112012Update(void* restrict, const unsigned char* restrict, size_t))(void)
 {
 	uint32_t eax, ebx, ecx, edx;
 
@@ -72,7 +72,7 @@ static void (*resolve_GOST34112012Update(void))(void)
 	return (func_t)&GOST34112012Update_ref;
 }
 
-static void (*resolve_GOST34112012Final(void))(void)
+static void (*resolve_GOST34112012Final(void* restrict, unsigned char* restrict))(void)
 {
 	uint32_t eax, ebx, ecx, edx;
 
