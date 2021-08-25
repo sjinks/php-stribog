@@ -35,6 +35,14 @@ make
 sudo make install
 ```
 
+You will also need to add
+
+```
+extension=stribog.so
+```
+
+to your `php.ini`.
+
 There are no configuration directives defined in `php.ini`.
 
 ## Usage Example
