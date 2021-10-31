@@ -15,6 +15,16 @@
 #	include "gost3411-2012-sse41.h"
 #endif
 
+#ifndef __GNUC_PREREQ__
+#ifdef __GNUC__
+#define	__GNUC_PREREQ__(x, y)						\
+	((__GNUC__ == (x) && __GNUC_MINOR__ >= (y)) ||			\
+	 (__GNUC__ > (x)))
+#else
+#define	__GNUC_PREREQ__(x, y)	0
+#endif
+#endif
+
 #include "tables.h"
 
 void GOST34112012Init(void* ctx, const unsigned int digest_size)
@@ -36,7 +46,7 @@ void GOST34112012Init(void* ctx, const unsigned int digest_size)
 	}
 }
 
-#if defined(HAVE_CPUID_H) && (__x86_64__ || __i386__) && defined(__GNUC__) && __GNUC_PREREQ(4, 6)
+#if defined(HAVE_CPUID_H) && (__x86_64__ || __i386__) && defined(__GNUC__) && __GNUC_PREREQ__(4, 6)
 typedef void (*func_t)(void);
 
 #ifndef bit_MMX
