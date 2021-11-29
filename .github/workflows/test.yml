@@ -13,7 +13,7 @@ jobs:
       matrix:
         compiler:
           - CC: clang
-            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas -Wno-implicit-const-int-float-conversion"
+            CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas -Wno-implicit-const-int-float-conversion -Wno-unused-function"
           - CC: gcc
             CFLAGS: "-O2 -g3 -Wall -Werror -Wno-unknown-pragmas"
         php:
