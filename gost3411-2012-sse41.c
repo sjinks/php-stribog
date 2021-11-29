@@ -1,3 +1,4 @@
+#if __x86_64__
 #pragma GCC target ("sse4.1,mmx")
 #pragma clang attribute push (__attribute__((target("sse4.1,mmx"))), apply_to=function)
 
@@ -36,110 +37,6 @@ static inline void add512(const union uint512_u* x, const union uint512_u* y, un
 		r->QWORD[i]  = sum;
 	}
 }
-
-#if __i386__
-
-static inline __m128i extract0(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
-{
-	__m64 mm0, mm1;
-
-	mm0 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 0)]);
-	mm0 = _mm_xor_64(mm0, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 8)]);
-	mm0 = _mm_xor_64(mm0, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 0)]);
-	mm0 = _mm_xor_64(mm0, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 8)]);
-	mm0 = _mm_xor_64(mm0, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 0)]);
-	mm0 = _mm_xor_64(mm0, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 8)]);
-	mm0 = _mm_xor_64(mm0, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 0)]);
-	mm0 = _mm_xor_64(mm0, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 8)]);
-
-	mm1 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 1)]);
-	mm1 = _mm_xor_64(mm1, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 9)]);
-	mm1 = _mm_xor_64(mm1, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 1)]);
-	mm1 = _mm_xor_64(mm1, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 9)]);
-	mm1 = _mm_xor_64(mm1, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 1)]);
-	mm1 = _mm_xor_64(mm1, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 9)]);
-	mm1 = _mm_xor_64(mm1, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 1)]);
-	mm1 = _mm_xor_64(mm1, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 9)]);
-
-	return _mm_set_epi64(mm1, mm0);
-}
-
-static inline __m128i extract2(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
-{
-	__m64 mm0, mm1;
-
-	mm0 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 2)]);
-	mm0 = _mm_xor_64(mm0, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 10)]);
-	mm0 = _mm_xor_64(mm0, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 2)]);
-	mm0 = _mm_xor_64(mm0, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 10)]);
-	mm0 = _mm_xor_64(mm0, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 2)]);
-	mm0 = _mm_xor_64(mm0, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 10)]);
-	mm0 = _mm_xor_64(mm0, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 2)]);
-	mm0 = _mm_xor_64(mm0, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 10)]);
-
-	mm1 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 3)]);
-	mm1 = _mm_xor_64(mm1, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 11)]);
-	mm1 = _mm_xor_64(mm1, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 3)]);
-	mm1 = _mm_xor_64(mm1, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 11)]);
-	mm1 = _mm_xor_64(mm1, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 3)]);
-	mm1 = _mm_xor_64(mm1, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 11)]);
-	mm1 = _mm_xor_64(mm1, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 3)]);
-	mm1 = _mm_xor_64(mm1, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 11)]);
-
-	return _mm_set_epi64(mm1, mm0);
-}
-
-static inline __m128i extract4(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
-{
-	__m64 mm0, mm1;
-
-	mm0 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 4)]);
-	mm0 = _mm_xor_64(mm0, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 12)]);
-	mm0 = _mm_xor_64(mm0, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 4)]);
-	mm0 = _mm_xor_64(mm0, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 12)]);
-	mm0 = _mm_xor_64(mm0, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 4)]);
-	mm0 = _mm_xor_64(mm0, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 12)]);
-	mm0 = _mm_xor_64(mm0, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 4)]);
-	mm0 = _mm_xor_64(mm0, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 12)]);
-
-	mm1 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 5)]);
-	mm1 = _mm_xor_64(mm1, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 13)]);
-	mm1 = _mm_xor_64(mm1, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 5)]);
-	mm1 = _mm_xor_64(mm1, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 13)]);
-	mm1 = _mm_xor_64(mm1, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 5)]);
-	mm1 = _mm_xor_64(mm1, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 13)]);
-	mm1 = _mm_xor_64(mm1, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 5)]);
-	mm1 = _mm_xor_64(mm1, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 13)]);
-
-	return _mm_set_epi64(mm1, mm0);
-}
-
-static inline __m128i extract6(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
-{
-	__m64 mm0, mm1;
-
-	mm0 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 6)]);
-	mm0 = _mm_xor_64(mm0, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 14)]);
-	mm0 = _mm_xor_64(mm0, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 6)]);
-	mm0 = _mm_xor_64(mm0, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 14)]);
-	mm0 = _mm_xor_64(mm0, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 6)]);
-	mm0 = _mm_xor_64(mm0, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 14)]);
-	mm0 = _mm_xor_64(mm0, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 6)]);
-	mm0 = _mm_xor_64(mm0, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 14)]);
-
-	mm1 = _mm_cvtsi64_m64(Ax[0][(uint8_t)_mm_extract_epi8(xmm0, 7)]);
-	mm1 = _mm_xor_64(mm1, Ax[1][(uint8_t)_mm_extract_epi8(xmm0, 15)]);
-	mm1 = _mm_xor_64(mm1, Ax[2][(uint8_t)_mm_extract_epi8(xmm1, 7)]);
-	mm1 = _mm_xor_64(mm1, Ax[3][(uint8_t)_mm_extract_epi8(xmm1, 15)]);
-	mm1 = _mm_xor_64(mm1, Ax[4][(uint8_t)_mm_extract_epi8(xmm2, 7)]);
-	mm1 = _mm_xor_64(mm1, Ax[5][(uint8_t)_mm_extract_epi8(xmm2, 15)]);
-	mm1 = _mm_xor_64(mm1, Ax[6][(uint8_t)_mm_extract_epi8(xmm3, 7)]);
-	mm1 = _mm_xor_64(mm1, Ax[7][(uint8_t)_mm_extract_epi8(xmm3, 15)]);
-
-	return _mm_set_epi64(mm1, mm0);
-}
-
-#else
 
 static inline __m128i extract0(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
 {
@@ -240,8 +137,6 @@ static inline __m128i extract6(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i
 
 	return _mm_insert_epi64(_mm_cvtsi64_si128(r0), r1, 1);
 }
-
-#endif
 
 static inline void g(union uint512_u* restrict h, const union uint512_u* restrict N, const unsigned char* restrict m)
 {
@@ -451,3 +346,4 @@ void GOST34112012Final_sse41(void* restrict ctx, unsigned char* restrict digest)
 }
 
 #pragma clang attribute pop
+#endif

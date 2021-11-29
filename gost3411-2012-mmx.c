@@ -1,3 +1,4 @@
+#if (__x86_64__ || __i386__)
 #pragma GCC target ("mmx")
 #pragma clang attribute push (__attribute__((target("mmx"))), apply_to=function)
 
@@ -237,3 +238,4 @@ void GOST34112012Final_mmx(void* restrict ctx, unsigned char* restrict digest)
 }
 
 #pragma clang attribute pop
+#endif

@@ -1,5 +1,5 @@
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#	include "config.h"
 #endif
 
 #ifdef HAVE_CPUID_H
@@ -12,17 +12,18 @@
 #if (__x86_64__ || __i386__)
 #	include "gost3411-2012-mmx.h"
 #	include "gost3411-2012-sse2.h"
+#endif
+
+#if __x86_64__
 #	include "gost3411-2012-sse41.h"
 #endif
 
 #ifndef __GNUC_PREREQ__
-#ifdef __GNUC__
-#define	__GNUC_PREREQ__(x, y)						\
-	((__GNUC__ == (x) && __GNUC_MINOR__ >= (y)) ||			\
-	 (__GNUC__ > (x)))
-#else
-#define	__GNUC_PREREQ__(x, y)	0
-#endif
+#	ifdef __GNUC__
+#		define __GNUC_PREREQ__(x, y) ((__GNUC__ == (x) && __GNUC_MINOR__ >= (y)) || (__GNUC__ > (x)))
+#	else
+#		define	__GNUC_PREREQ__(x, y) 0
+#	endif
 #endif
 
 #include "tables.h"
@@ -46,19 +47,19 @@ void GOST34112012Init(void* ctx, const unsigned int digest_size)
 	}
 }
 
-#if defined(HAVE_CPUID_H) && (__x86_64__ || __i386__) && defined(__GNUC__) && __GNUC_PREREQ__(4, 6)
+#if defined(HAVE_CPUID_H) && (__x86_64__ || __i386__) && (defined(__GNUC__) && __GNUC_PREREQ__(4, 6) || defined(__clang_major__) && __clang_major__ >= 4)
 typedef void (*func_t)(void);
 
 #ifndef bit_MMX
-#define bit_MMX     (1 << 23)
+#	define bit_MMX     (1 << 23)
 #endif
 
 #ifndef bit_SSE2
-#define bit_SSE2    (1 << 26)
+#	define bit_SSE2    (1 << 26)
 #endif
 
 #ifndef bit_SSE4_1
-#define bit_SSE4_1  (1 << 19)
+#	define bit_SSE4_1  (1 << 19)
 #endif
 
 static void (*resolve_GOST34112012Update(void))(void* restrict, const unsigned char* restrict, size_t)
@@ -66,9 +67,11 @@ static void (*resolve_GOST34112012Update(void))(void* restrict, const unsigned c
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+#if __x86_64__
 		if (ecx & bit_SSE4_1) {
 			return GOST34112012Update_sse41;
 		}
+#endif
 
 		if (edx & bit_SSE2) {
 			return GOST34112012Update_sse2;
@@ -87,9 +90,11 @@ static void (*resolve_GOST34112012Final(void))(void* restrict, unsigned char* re
 	uint32_t eax, ebx, ecx, edx;
 
 	if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+#if __x86_64__
 		if (ecx & bit_SSE4_1) {
 			return GOST34112012Final_sse41;
 		}
+#endif
 
 		if (edx & bit_SSE2) {
 			return GOST34112012Final_sse2;

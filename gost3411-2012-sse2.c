@@ -1,3 +1,4 @@
+#if (__x86_64__ || __i386__)
 #pragma GCC target ("sse2,mmx")
 #pragma clang attribute push (__attribute__((target("sse2,mmx"))), apply_to=function)
 
@@ -114,7 +115,7 @@ static inline __m128i extract1(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i
 	return _mm_set_epi64(mm1, mm0);
 }
 
-static inline __m128i extract2(const unsigned int row, __m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
+static inline __m128i extract2(__m128i xmm0, __m128i xmm1, __m128i xmm2, __m128i xmm3)
 {
 	uint16_t ax;
 	__m64 mm0, mm1;
@@ -566,3 +567,4 @@ void GOST34112012Final_sse2(void* restrict ctx, unsigned char* restrict digest)
 }
 
 #pragma clang attribute pop
+#endif
